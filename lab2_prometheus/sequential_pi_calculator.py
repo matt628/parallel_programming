@@ -1,4 +1,7 @@
+#!/usr/bin/env python
 import random
+from mpi4py import MPI
+import socket
 
 radius = 1
 random.seed(21596)
