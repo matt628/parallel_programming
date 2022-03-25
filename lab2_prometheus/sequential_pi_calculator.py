@@ -2,10 +2,11 @@
 import random
 from mpi4py import MPI
 import socket
+import sys
 
 radius = 1
 random.seed(21596)
-NUMBER_OF_POINTS = 10000000
+NUMBER_OF_POINTS = sys.argv[1]
 
 
 def is_inside_circle(x, y):
