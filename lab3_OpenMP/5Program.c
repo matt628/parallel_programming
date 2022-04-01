@@ -8,12 +8,10 @@ int main () {
     srand(time(NULL));   // Initialization, should only be called once.
     // int r = rand();      // Returns a pseudo-random integer between 0 and RAND_MAX.
     int arr[MAX_SIZE+10];
-    omp_set_num_threads(2);
+    omp_set_num_threads(1);
     double start =  omp_get_wtime();
     #pragma omp parallel
     {
-        printf("Liczba wątków: %d\n", omp_get_num_threads());
-        printf("Jestem wątek nr: %d\n", omp_get_thread_num());
         int i;
         #pragma omp for private (i)
         for(i = 1; i < MAX_SIZE/4; i++) {
