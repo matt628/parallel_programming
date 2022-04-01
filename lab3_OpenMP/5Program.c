@@ -21,7 +21,7 @@ int main () {
     }
     int end =  omp_get_wtime();
 
-    printf("time %d", end-start);
+    printf("time %d\n", end-start);
     int i;
     for(i = 0; i < MAX_SIZE; ++i) {
         printf("%d\n", arr[i]);
