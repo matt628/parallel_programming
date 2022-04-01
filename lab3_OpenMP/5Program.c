@@ -8,7 +8,7 @@ int main () {
     srand(time(NULL));   // Initialization, should only be called once.
     // int r = rand();      // Returns a pseudo-random integer between 0 and RAND_MAX.
     int arr[MAX_SIZE+10];
-    int start =  omp_get_wtime();
+    double start =  omp_get_wtime();
     #pragma omp parallel 
     {
         printf("Liczba wątków: %d\n", omp_get_num_threads());
@@ -19,9 +19,9 @@ int main () {
             arr[(i*omp_get_thread_num())] = 1;
         }
     }
-    int end =  omp_get_wtime();
+    double end =  omp_get_wtime();
 
-    printf("time %d\n", end-start);
+    printf("time %f\n", end-start);
     // int i;
     // for(i = 0; i < MAX_SIZE; ++i) {
     //     printf("%d\n", arr[i]);
