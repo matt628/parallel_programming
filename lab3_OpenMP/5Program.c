@@ -19,7 +19,8 @@ int main () {
             arr[(i*omp_get_thread_num())-1] = rand();
         }
     }
-    for(int i = 0; i < MAX_SIZE; ++i) {
+    int i;
+    for(i = 0; i < MAX_SIZE; ++i) {
         printf("%d\n", arr[i]);
     }
     return 0;
