@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 int main () {
-    const int MAX_SIZE = 1000;
+    const int MAX_SIZE = 100000;
     srand(time(NULL));   // Initialization, should only be called once.
     // int r = rand();      // Returns a pseudo-random integer between 0 and RAND_MAX.
     int arr[MAX_SIZE+10];
