@@ -13,9 +13,10 @@ int main () {
     {
         printf("Liczba wątków: %d\n", omp_get_num_threads());
         printf("Jestem wątek nr: %d\n", omp_get_thread_num());
+        int i;
         #pragma opm for 
-        for(int i = 0; i < MAX_SIZE/4; i++) {
-            arr[(i*omp_get_thread_num())-1] = rand()
+        for(i = 0; i < MAX_SIZE/4; i++) {
+            arr[(i*omp_get_thread_num())-1] = rand();
         }
     }
     for(int i = 0; i < MAX_SIZE; ++i) {
