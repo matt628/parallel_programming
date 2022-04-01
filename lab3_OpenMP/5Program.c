@@ -8,7 +8,7 @@ int main () {
     srand(time(NULL));   // Initialization, should only be called once.
     // int r = rand();      // Returns a pseudo-random integer between 0 and RAND_MAX.
     int arr[MAX_SIZE+10];
-    omp_set_num_threads(1);
+    omp_set_num_threads(4);
     double start =  omp_get_wtime();
     #pragma omp parallel
     {
