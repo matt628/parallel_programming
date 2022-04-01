@@ -1,7 +1,7 @@
 #include <iostream>
 #include <omp.h>
 #include <unistd.h>
-#define THREAD_NUM 4
+#define THREAD_NUM 4;
 int main() {
     omp_set_thread_num(THREAD_NUM); // set number of threads in "parallel" blocks
     #pragma omp parallel
