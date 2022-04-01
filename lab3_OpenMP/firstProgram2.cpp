@@ -1,9 +1,9 @@
 #include <iostream>
 #include <omp.h>
 #include <unistd.h>
-#define THREAD_NUM 4;
+// #define THREAD_NUM 4;
 int main() {
-    omp_set_thread_num(THREAD_NUM); // set number of threads in "parallel" blocks
+    omp_set_thread_num(4); // set number of threads in "parallel" blocks
     #pragma omp parallel
     {
         usleep(5000 * omp_get_thread_num()); // do this to avoid race condition while printing
