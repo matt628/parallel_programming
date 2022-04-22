@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <omp.h>
 #include <algorithm>
+#include <argh/argh.h>
 #include <iostream>
 
 #ifndef SCHEDULE
