@@ -30,18 +30,34 @@ void uniform_fill(std::vector<double>& array) {
   }
 }
 
+void bucket_sort(std::vector<double>& array, int no_buckets) {
+    
+}
+
 int main(int argc, char* argv[]) { 
     std::vector<double> data(size);  
+
+
+
+    cmdl({ "-t", "--threads"}) >> threads;
+    cmdl({ "-s", "--size" }) >> size;
+    cmdl({ "-r", "--repeat" }) >> repeat;
 
 
     double fill_time_0 = omp_get_wtime();
     uniform_fill(data);
     double fill_time = omp_get_wtime() - fill_time_0;
 
-    std::cout << '\nd\n';
+    argh::parser cmdl(argv);
 
-    for(int i = 0; i < size; i++) {
-        std::cout<<data[i];
-    }
+    std::vector<double> original = data;
+
+    double bucket_sort_1 = omp_get_wtime();
+    bucket_sort(data, 8);
+    double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
+
+
+    printf("fill_time, bucket_time\n");
+    printf("%lf, %lf\n", fill_time, bucket_sort_time);
 
 }
