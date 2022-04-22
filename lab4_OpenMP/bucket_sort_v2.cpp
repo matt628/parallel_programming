@@ -34,6 +34,18 @@ void bucket_sort(std::vector<double>& array, int no_buckets) {
 
 }
 
+void verify(std::vector<double>& supposedly_sorted, std::vector<double>& original) {
+  std::sort(original.begin(), original.end());
+
+  bool are_equal = supposedly_sorted == original;
+
+  if(are_equal) {
+    printf("Sorted Successful\n");
+  } else {
+    printf("!!! NOT Sorted !!!\n");
+  }
+} 
+
 int main(int argc, char* argv[]) { 
     std::vector<double> data(size);  
 
