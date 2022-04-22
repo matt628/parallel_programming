@@ -12,10 +12,8 @@
 
 int threads = 1, size = 1e6, repeat = 1;
 
-// template<int min=0, int max=1>
+template<int min=0, int max=1>
 void uniform_fill(std::vector<double>& array) {
-  int min = 0;
-  int max = 1;
   int size = array.size();
   #pragma omp parallel num_threads(threads)
   {
