@@ -38,6 +38,6 @@ int main(int argc, char* argv[]) {
     uniform_fill(data);
     double fill_time = omp_get_wtime() - fill_time_0;
 
-    cout << 'd';
+    std::out << 'd';
 
 }
