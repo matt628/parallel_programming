@@ -69,6 +69,7 @@ int main(int argc, char* argv[]) {
     double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
 
+    verify(data, original);
     printf("fill_time, bucket_time\n");
     printf("%lf, %lf\n", fill_time, bucket_sort_time);
 
