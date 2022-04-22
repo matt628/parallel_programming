@@ -31,7 +31,7 @@ void uniform_fill(std::vector<double>& array) {
 }
 
 void bucket_sort(std::vector<double>& array, int no_buckets) {
-    
+
 }
 
 int main(int argc, char* argv[]) { 
@@ -39,9 +39,9 @@ int main(int argc, char* argv[]) {
 
 
 
-    cmdl({ "-t", "--threads"}) >> threads;
-    cmdl({ "-s", "--size" }) >> size;
-    cmdl({ "-r", "--repeat" }) >> repeat;
+    // cmdl({ "-t", "--threads"}) >> threads;
+    // cmdl({ "-s", "--size" }) >> size;
+    // cmdl({ "-r", "--repeat" }) >> repeat;
 
 
     double fill_time_0 = omp_get_wtime();
