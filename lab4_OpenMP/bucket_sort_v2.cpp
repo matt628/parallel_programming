@@ -43,11 +43,10 @@ void parallel_bucket_sort_1(std::vector<double>& array) {
   int estimated_bucket_size = std::max((int)array.size() / no_buckets, 1);
   std::vector<std::vector<double>> buckets(no_buckets);
   for (auto bucket : buckets) {
-	bucket.reserve(estimated_bucket_size);
+	  bucket.reserve(estimated_bucket_size);
   }
 
 #pragma omp parallel shared(buckets) firstprivate(no_buckets) num_threads(threads)
-
   {
 	int tid = omp_get_thread_num();
 
