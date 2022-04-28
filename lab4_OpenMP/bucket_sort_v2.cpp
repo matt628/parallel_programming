@@ -61,7 +61,6 @@ void parallel_bucket_sort_1(std::vector<double>& array) {
 		  buckets[bucket_index].push_back(array[i % array.size()]);
 		}
   }
-
 	// now each thread sorts its share of buckets.
 	double sort_buckets_time = timeit([&] {
 #pragma omp for schedule(static)
