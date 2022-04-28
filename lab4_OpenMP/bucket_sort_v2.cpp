@@ -122,7 +122,7 @@ int main(int argc, char* argv[]) {
       std::vector<double> original = data;
 
       double bucket_sort_1 = omp_get_wtime();
-      bucket_sort(data, 8);
+      parallel_bucket_sort_1(data);
       double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
 
