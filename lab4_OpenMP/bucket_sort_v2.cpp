@@ -61,6 +61,8 @@ int main(int argc, char* argv[]) {
 
     threads = cmdl["threads"];
     size = cmdl["size"];
+    repeat = cmdl["repeat"];
+    bucket_size = cmdl["bucket"];
 
     double fill_time_0 = omp_get_wtime();
     uniform_fill(data);
