@@ -11,6 +11,13 @@
 #define SCHEDULE_STR "schedule(static)"
 #endif
 
+template<typename Function>
+double inline timeit(Function&& timed_function) {
+  double time_0 = omp_get_wtime();
+  timed_function();
+  return omp_get_wtime() - time_0;
+}
+
 // GLOBAL 
 int threads, size, repeat, bucket_size;
 
