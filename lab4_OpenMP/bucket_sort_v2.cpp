@@ -16,7 +16,7 @@ int threads, size, repeat, bucket_size;
 
 template<int min = 0, int max = 1>
 void uniform_fill(std::vector<double>& array) {
-  printf("THREADS %d", threads);
+  printf("THREADS %d\n", threads);
 #pragma omp parallel num_threads(threads)
   {
 	std::uniform_real_distribution<double> distribution(min, max);
@@ -58,7 +58,6 @@ int main(int argc, char* argv[]) {
     size = atoi(argv[2]);
     repeat = atoi(argv[3]);
     bucket_size = atoi(argv[4]);
-    printf("%d", repeat);
     for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
       uniform_fill(data);
