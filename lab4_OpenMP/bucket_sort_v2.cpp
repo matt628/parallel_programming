@@ -58,20 +58,20 @@ int main(int argc, char* argv[]) {
     size = cmdl["size"];
     repeat = cmdl["repeat"];
     bucket_size = cmdl["bucket"];
+    for(int i = 0; i<repeat; i++){
+      double fill_time_0 = omp_get_wtime();
+      uniform_fill(data);
+      double fill_time = omp_get_wtime() - fill_time_0;
 
-    double fill_time_0 = omp_get_wtime();
-    uniform_fill(data);
-    double fill_time = omp_get_wtime() - fill_time_0;
+      std::vector<double> original = data;
 
-    std::vector<double> original = data;
-
-    double bucket_sort_1 = omp_get_wtime();
-    bucket_sort(data, 8);
-    double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
+      double bucket_sort_1 = omp_get_wtime();
+      bucket_sort(data, 8);
+      double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
 
-    bool isSorted = verify(data, original);
-    printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
-    printf("%d, %d, %d, %d, %lf, %lf, %lf, %d\n", threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
-
+      bool isSorted = verify(data, original);
+      // printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
+      printf("%d, %d, %d, %d, %lf, %lf, %lf, %d\n", threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
+    }
 }
