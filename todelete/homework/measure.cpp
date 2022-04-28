@@ -4,6 +4,7 @@
 #include <omp.h>
 #include <algorithm>
 #include <iostream>
+#include<stdarg.h>
 
 // ------ Program parameters ----------
 
@@ -202,7 +203,7 @@ void parallel_bucket_sort_1(std::vector<double>& array, Measurement& measurement
 
 		if (tid * buckets_per_thread <= bucket_index &&
 			(bucket_index < (tid + 1) * buckets_per_thread ||
-			tid == param_threads - 1) {
+			tid == param_threads - 1)) {
 		  buckets[bucket_index].push_back(array[i % array.size()]);
 		}
 	  }
