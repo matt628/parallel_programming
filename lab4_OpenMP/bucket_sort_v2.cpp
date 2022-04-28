@@ -38,15 +38,15 @@ void bucket_sort(std::vector<double>& array, int no_buckets) {
 template<int max = 1>
 void parallel_bucket_sort_1(std::vector<double>& array) {
   // allocate memory for buckets.
-  int no_buckets = param_size / bucket_size;
-  int buckets_per_thread = no_buckets / param_threads;
+  int no_buckets = size / bucket_size;
+  int buckets_per_thread = no_buckets / threads;
   int estimated_bucket_size = std::max((int)array.size() / no_buckets, 1);
   std::vector<std::vector<double>> buckets(no_buckets);
   for (auto bucket : buckets) {
 	bucket.reserve(estimated_bucket_size);
   }
 
-#pragma omp parallel shared(buckets) firstprivate(no_buckets) num_threads(param_threads)
+#pragma omp parallel shared(buckets) firstprivate(no_buckets) num_threads(threads)
 
   {
 	int tid = omp_get_thread_num();
