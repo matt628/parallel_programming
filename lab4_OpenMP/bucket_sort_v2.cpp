@@ -31,7 +31,7 @@ void uniform_fill(std::vector<double>& array) {
 }
 
 void bucket_sort(std::vector<double>& array, int no_buckets) {
-
+    
 }
 
 void verify(std::vector<double>& supposedly_sorted, std::vector<double>& original) {
