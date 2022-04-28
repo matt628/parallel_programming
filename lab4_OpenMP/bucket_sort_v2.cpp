@@ -14,20 +14,20 @@
 // GLOBAL 
 int threads = 1, size = 1e6, repeat = 1, 	bucket_size = 50;
 
-template<int min=0, int max=1>
+template<int min = 0, int max = 1>
 void uniform_fill(std::vector<double>& array) {
-  int size = array.size();
-  #pragma omp parallel num_threads(threads)
+  printf("THREADS %d", threads);
+#pragma omp parallel num_threads(param_threads)
   {
-    std::uniform_real_distribution<double> distribution(min, max);
-    std::default_random_engine generator; 
-    int t_thread = omp_get_thread_num();
-    generator.seed(t_thread * time(NULL) + 17);
-    
-    #pragma omp for SCHEDULE
-    for (int i = 0; i < size; i++) {
-      array[i] = distribution(generator);
-    }
+	std::uniform_real_distribution<double> distribution(min, max);
+	std::default_random_engine generator;
+	int t_thread = omp_get_thread_num();
+	generator.seed(t_thread * time(NULL) + 17);
+
+#pragma omp for SCHEDULE
+	for (size_t i = 0; i < array.size(); i++) {
+	  array[i] = distribution(generator);
+	}
   }
 }
 
@@ -54,11 +54,6 @@ int main(int argc, char* argv[]) {
 
     std::vector<double> data(size);  
 
-    // cmdl({ "-t", "--threads"}, threads) >> threads;
-    // cmdl([{ "-s", "--size" }], size) >> size;
-    // cmdl({ "-r", "--repeat" }), repeat >> repeat;
-    // cmdl({"-b", "--bucket", bucket_size}) >> bucket_size;
-
     threads = cmdl["threads"];
     size = cmdl["size"];
     repeat = cmdl["repeat"];
@@ -76,7 +71,7 @@ int main(int argc, char* argv[]) {
 
 
     bool isSorted = verify(data, original);
-    printf("fill_time, bucket_time, total_time, is_sorted\n");
-    printf("%lf, %lf, %lf, %d\n", fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
+    printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
+    printf("%d, %d, %d, %d, %lf, %lf, %lf, %d\n", threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
 
 }
