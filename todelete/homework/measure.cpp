@@ -4,7 +4,6 @@
 #include <omp.h>
 #include <algorithm>
 #include <iostream>
-#include "argh/argh.h"
 
 // ------ Program parameters ----------
 
@@ -369,15 +368,14 @@ void log_results(Measurement measurement) {
 }
 
 int main(int, char* argv[]) {
-  argh::parser cmdl(argv);
 
-  cmdl({"-t", "--threads"}, param_threads) >> param_threads;
-  cmdl({"-s", "--size"}, param_size) >> param_size;
-  cmdl({"-r", "--repeat"}, param_repeat) >> param_repeat;
-  cmdl({"-v", "--version"}, param_algorithm_version) >> param_algorithm_version;
-  cmdl({"-b", "--bucket-size"}, bucket_size) >> bucket_size;
-  cmdl({"-l", "--log-format"}, log_format) >> log_format;
-  cmdl({"-g", "--sample-generator"}, sample_generator_flag) >> sample_generator_flag;
+  param_threads = atoi(argv[1]);
+  param_size = atoi(argv[2]);
+  param_repeat = atoi(argv[3]);
+  param_algorithm_version = atoi(argv[4]);
+  bucket_size = atoi(argv[5]);
+//   log_format = atoi(argv[1]);
+//   sample_generator_flag = atoi(argv[1]);
 
   if (sample_generator_flag) {
 	std::vector<double> data(param_size);
