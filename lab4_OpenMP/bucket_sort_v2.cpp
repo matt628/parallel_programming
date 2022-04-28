@@ -54,10 +54,10 @@ int main(int argc, char* argv[]) {
 
     std::vector<double> data(size);  
 
-    threads = int(argv[1]);
-    size = int(argv[2]);
-    repeat = int(argv[3]);
-    bucket_size = int(argv[4]);
+    threads = atoi(argv[1]);
+    size = atoi(argv[2]);
+    repeat = atoi(argv[3]);
+    bucket_size = atoi(argv[4]);
     printf("%d", repeat);
     for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
