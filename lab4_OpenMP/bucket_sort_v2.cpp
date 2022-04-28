@@ -12,7 +12,7 @@
 #endif
 
 // GLOBAL 
-int threads = 1, size = 1e6, repeat = 1, 	bucket_size = 50;
+int threads, size, repeat, bucket_size;
 
 template<int min = 0, int max = 1>
 void uniform_fill(std::vector<double>& array) {
