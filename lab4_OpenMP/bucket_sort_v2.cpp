@@ -58,6 +58,7 @@ int main(int argc, char* argv[]) {
     size = cmdl["size"];
     repeat = cmdl["repeat"];
     bucket_size = cmdl["bucket"];
+    printf("%d", repeat);
     for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
       uniform_fill(data);
