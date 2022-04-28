@@ -35,16 +35,77 @@ void bucket_sort(std::vector<double>& array, int no_buckets) {
 }
 
 
+template<int max = 1>
+void parallel_bucket_sort_1(std::vector<double>& array) {
+  // allocate memory for buckets.
+  int no_buckets = param_size / bucket_size;
+  int buckets_per_thread = no_buckets / param_threads;
+  int estimated_bucket_size = std::max((int)array.size() / no_buckets, 1);
+  std::vector<std::vector<double>> buckets(no_buckets);
+  for (auto bucket : buckets) {
+	bucket.reserve(estimated_bucket_size);
+  }
+
+#pragma omp parallel shared(buckets) firstprivate(no_buckets) num_threads(param_threads)
+
+  {
+	int tid = omp_get_thread_num();
+
+	// we start by populating buckets
+	// each thread fills its own buckets.
+	double split_to_buckets_time = timeit([&] {
+	  for (size_t i = tid; i < tid + array.size(); i++) {
+		int bucket_index = std::min((int)(no_buckets * array[i % array.size()] / max), no_buckets - 1);
+
+		if (tid * buckets_per_thread <= bucket_index &&
+			(bucket_index < (tid + 1) * buckets_per_thread ||
+			tid == param_threads - 1) {
+		  buckets[bucket_index].push_back(array[i % array.size()]);
+		}
+	  }
+	});
+
+	// now each thread sorts its share of buckets.
+	double sort_buckets_time = timeit([&] {
+#pragma omp for schedule(static)
+	  for (int bucket_index = 0; bucket_index < no_buckets; bucket_index++) {
+		std::sort(buckets[bucket_index].begin(), buckets[bucket_index].end());
+	  }
+	});
+
+	// after the buckets have been sorted
+	double write_sorted_buckets_time = timeit([&] {
+
+	  // we compute indices where to start writing in the original array.
+	  std::vector<int> bucket_idx_to_array_idx_table(no_buckets);
+	  for (int bucket_index = 1; bucket_index < no_buckets; bucket_index++) {
+		bucket_idx_to_array_idx_table[bucket_index] =
+			buckets[bucket_index - 1].size() + bucket_idx_to_array_idx_table[bucket_index - 1];
+	  }
+
+	  // finally, we can write the result.
+#pragma omp for schedule(static)
+	  for (int bucket_index = 0; bucket_index < no_buckets; bucket_index++) {
+		int start_idx = bucket_idx_to_array_idx_table[bucket_index];
+		for (size_t i = 0; i < buckets[bucket_index].size(); i++) {
+		  array[start_idx + i] = buckets[bucket_index][i];
+		}
+	  }
+	});
+
+	// // update measurements at the end.
+	// if (tid == 0) {
+	//   measurement.split_to_buckets_time = split_to_buckets_time;
+	//   measurement.sort_buckets_time = sort_buckets_time;
+	//   measurement.write_sorted_buckets_time = write_sorted_buckets_time;
+	// }
+  // }
+}
+}
+
 bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& original) {
   std::sort(original.begin(), original.end());
-
   bool are_equal = supposedly_sorted == original;
-
-  if(are_equal) {
-    // printf("Sorted Successful\n");
-  } else {
-    // printf("!!! NOT Sorted !!!\n");
-  }
   return are_equal;
 } 
 
