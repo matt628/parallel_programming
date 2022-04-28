@@ -11,7 +11,8 @@
 #define SCHEDULE_STR "schedule(static)"
 #endif
 
-int threads = 1, size = 1e6, repeat = 1;
+// GLOBAL 
+int threads = 1, size = 1e6, repeat = 1, 	bucket_size = 50;
 
 template<int min=0, int max=1>
 void uniform_fill(std::vector<double>& array) {
@@ -34,34 +35,33 @@ void bucket_sort(std::vector<double>& array, int no_buckets) {
     
 }
 
+
 bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& original) {
   std::sort(original.begin(), original.end());
 
   bool are_equal = supposedly_sorted == original;
 
   if(are_equal) {
-    printf("Sorted Successful\n");
+    // printf("Sorted Successful\n");
   } else {
-    printf("!!! NOT Sorted !!!\n");
+    // printf("!!! NOT Sorted !!!\n");
   }
   return are_equal;
 } 
 
 int main(int argc, char* argv[]) { 
+    argh::parser cmdl(argv);
+
     std::vector<double> data(size);  
 
-
-
-    // cmdl({ "-t", "--threads"}) >> threads;
-    // cmdl({ "-s", "--size" }) >> size;
-    // cmdl({ "-r", "--repeat" }) >> repeat;
-
+    cmdl({ "-t", "--threads"}, threads) >> threads;
+    cmdl([{ "-s", "--size" }], size) >> size;
+    cmdl({ "-r", "--repeat" }), repeat >> repeat;
+    cmdl({"-b", "--bucket", bucket_size}) >> bucket_size;
 
     double fill_time_0 = omp_get_wtime();
     uniform_fill(data);
     double fill_time = omp_get_wtime() - fill_time_0;
-
-    argh::parser cmdl(argv);
 
     std::vector<double> original = data;
 
@@ -72,6 +72,6 @@ int main(int argc, char* argv[]) {
 
     bool isSorted = verify(data, original);
     printf("fill_time, bucket_time, total_time, is_sorted\n");
-    printf("%lf, %lf, %lf\n", fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
+    printf("%lf, %lf, %lf, %d\n", fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
 
 }
