@@ -34,7 +34,7 @@ void bucket_sort(std::vector<double>& array, int no_buckets) {
     
 }
 
-void verify(std::vector<double>& supposedly_sorted, std::vector<double>& original) {
+bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& original) {
   std::sort(original.begin(), original.end());
 
   bool are_equal = supposedly_sorted == original;
@@ -44,6 +44,7 @@ void verify(std::vector<double>& supposedly_sorted, std::vector<double>& origina
   } else {
     printf("!!! NOT Sorted !!!\n");
   }
+  return are_equal;
 } 
 
 int main(int argc, char* argv[]) { 
@@ -69,8 +70,8 @@ int main(int argc, char* argv[]) {
     double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
 
-    verify(data, original);
-    printf("fill_time, bucket_time\n");
-    printf("%lf, %lf\n", fill_time, bucket_sort_time);
+    bool isSorted = verify(data, original);
+    printf("fill_time, bucket_time, total_time, is_sorted\n");
+    printf("%lf, %lf, %lf\n", fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
 
 }
