@@ -54,10 +54,13 @@ int main(int argc, char* argv[]) {
 
     std::vector<double> data(size);  
 
-    cmdl({ "-t", "--threads"}, threads) >> threads;
-    cmdl([{ "-s", "--size" }], size) >> size;
-    cmdl({ "-r", "--repeat" }), repeat >> repeat;
-    cmdl({"-b", "--bucket", bucket_size}) >> bucket_size;
+    // cmdl({ "-t", "--threads"}, threads) >> threads;
+    // cmdl([{ "-s", "--size" }], size) >> size;
+    // cmdl({ "-r", "--repeat" }), repeat >> repeat;
+    // cmdl({"-b", "--bucket", bucket_size}) >> bucket_size;
+
+    threads = cmdl["threads"];
+    size = cmdl["size"];
 
     double fill_time_0 = omp_get_wtime();
     uniform_fill(data);
