@@ -16,7 +16,6 @@ int threads, size, repeat, bucket_size;
 
 template<int min = 0, int max = 1>
 void uniform_fill(std::vector<double>& array) {
-  printf("THREADS %d\n", threads);
 #pragma omp parallel num_threads(threads)
   {
 	std::uniform_real_distribution<double> distribution(min, max);
