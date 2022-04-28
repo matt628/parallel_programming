@@ -59,7 +59,7 @@ void parallel_bucket_sort_1(std::vector<double>& array) {
 
 		if (tid * buckets_per_thread <= bucket_index &&
 			(bucket_index < (tid + 1) * buckets_per_thread ||
-			tid == param_threads - 1) {
+			tid == threads - 1) {
 		  buckets[bucket_index].push_back(array[i % array.size()]);
 		}
 	  }
