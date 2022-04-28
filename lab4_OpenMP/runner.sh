@@ -3,7 +3,7 @@
 make clean
 make build
 
-size=10000000
+size=100000000
 
 mkdir -p temp
 
