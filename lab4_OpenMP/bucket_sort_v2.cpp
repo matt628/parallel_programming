@@ -50,16 +50,16 @@ bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& origina
 } 
 
 int main(int argc, char* argv[]) { 
-    argh::parser cmdl(argv);
+    // argh::parser cmdl(argv);
 
     std::vector<double> data(size);  
 
-    threads = cmdl["threads"];
-    size = cmdl["size"];
-    repeat = cmdl["repeat"];
-    bucket_size = cmdl["bucket"];
+    threads = int(argv[1]);
+    size = int(argv[2]);
+    repeat = int(argv[3]);
+    bucket_size = int(argv[4]);
     printf("%d", repeat);
-    for(int i = 0; i<5; i++){
+    for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
       uniform_fill(data);
       double fill_time = omp_get_wtime() - fill_time_0;
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 
 
       bool isSorted = verify(data, original);
-      printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
+      // printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
       printf("%d, %d, %d, %d, %lf, %lf, %lf, %d\n", threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
     }
 }
