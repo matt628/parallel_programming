@@ -111,6 +111,12 @@ void parallel_bucket_sort_1(std::vector<double>& array) {
 }
 }
 
+//a) czy potrzebna jest jakaś ochrona danych wspólnych (
+  // tablica początkowa: przy odczycie i przy zapisie; 
+  //kubełki: przy zapisie, sortowaniu  kubełka, - nie kady wątek ma swoj kubelek
+  // odczycie 
+//b) jaki jest rząd złożoności obliczeniowej algorytmu, a jaka jest praca algorytmu równoległego, czy algorytm jest sekwencyjnie-efektywny?
+
 void perfect_bucket_sort(std::vector<double>& array){
   bucket_size =1; 
   int no_buckets = size / bucket_size;
@@ -118,6 +124,16 @@ void perfect_bucket_sort(std::vector<double>& array){
   std::vector<int> buckets(no_buckets);
 
   // each thread reads the whole array
+  #pragma omp parallel shared(buckets) firstprivate(no_buckets) num_threads(threads)
+  {
+	int tid = omp_get_thread_num();
+    for (size_t i = tid; i < tid + array.size(); i++) {
+      size_t index = i % array.size();
+      int bucket_index = std::min((int)(no_buckets * array[i % array.size()] / max), no_buckets - 1);
+      if (tid * buckets_per_thread <= bucket_index && (bucket_index < (tid + 1) * buckets_per_thread || tid == threads - 1)) {
+        buckets[bucket_index].push_back(array[index]);
+      }
+  }
   
   // put numbers into own buckets
 
@@ -143,20 +159,25 @@ int main(int argc, char* argv[]) {
     bucket_size = atoi(argv[4]);
     char* use_perfect_data_string = argv[5];
 
-    bool use_perfect_data = use_perfect_data == 'true' ? true : false;
+    bool use_perfect_data = use_perfect_data_string == 'true' ? true : false;
     for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
       if(use_perfect_data) {
-        uniform_fill(data);
-      } else {
         generate_perfect_array(data);
+      } else {
+        uniform_fill(data);
       }
       double fill_time = omp_get_wtime() - fill_time_0;
 
       std::vector<double> original = data;
 
       double bucket_sort_1 = omp_get_wtime();
-      parallel_bucket_sort_1(data);
+      if(use_perfect_data){
+        perfect_bucket_sort(data);
+      } else {
+        parallel_bucket_sort_1(data);
+      }
+      // parallel_bucket_sort_1(data);
       double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
 
