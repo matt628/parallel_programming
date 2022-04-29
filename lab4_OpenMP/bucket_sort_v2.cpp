@@ -211,7 +211,7 @@ bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& origina
 } 
 
 bool isIntMethod(auto method) {
-  return method == "bucket_sort_omp" || method == "perfect_bucket_sort"
+  return method == "bucket_sort_omp" || method == "perfect_bucket_sort";
 }
 
 int main(int argc, char* argv[]) { 
@@ -257,12 +257,13 @@ int main(int argc, char* argv[]) {
       } else if (method == "bucket_double") {
         bucket_sort_1(data);
       } else {
-        assert("Mehtod not known")
+        assert("Mehtod not known");
       }
       double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
 
       // bool isSorted = verify(data, original);
+      bool isSorted = true;
       // printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
       printf("%d, %d, %d, %d, %lf, %lf, %lf, %s,%d\n", 
       threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, method, isSorted);
