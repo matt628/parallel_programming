@@ -216,7 +216,7 @@ bool isIntMethod(auto method) {
 
 int main(int argc, char* argv[]) { 
     // argh::parser cmdl(argv);
-    // auto method  = "bucket_sort_omp";
+    auto method  = "bucket_sort_omp";
     // if(method == "bucket_sort_omp" || method == "perfect_bucket_sort") {
     //       std::vector<int> data(size);  
 
