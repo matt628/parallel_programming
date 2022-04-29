@@ -124,16 +124,16 @@ void perfect_bucket_sort(std::vector<double>& array){
   std::vector<int> buckets(no_buckets);
 
   // each thread reads the whole array
-  #pragma omp parallel shared(buckets) firstprivate(no_buckets) num_threads(threads)
-  {
-	int tid = omp_get_thread_num();
-    for (size_t i = tid; i < tid + array.size(); i++) {
-      size_t index = i % array.size();
-      int bucket_index = std::min((int)(no_buckets * array[i % array.size()] / max), no_buckets - 1);
-      if (tid * buckets_per_thread <= bucket_index && (bucket_index < (tid + 1) * buckets_per_thread || tid == threads - 1)) {
-        buckets[bucket_index].push_back(array[index]);
-      }
-  }
+  // #pragma omp parallel shared(buckets) firstprivate(no_buckets) num_threads(threads)
+  // {
+	// int tid = omp_get_thread_num();
+  //   for (size_t i = tid; i < tid + array.size(); i++) {
+  //     size_t index = i % array.size();
+  //     int bucket_index = std::min((int)(no_buckets * array[i % array.size()] / max), no_buckets - 1);
+  //     if (tid * buckets_per_thread <= bucket_index && (bucket_index < (tid + 1) * buckets_per_thread || tid == threads - 1)) {
+  //       buckets[bucket_index].push_back(array[index]);
+  //     }
+  // }
   
   }
   // put numbers into own buckets

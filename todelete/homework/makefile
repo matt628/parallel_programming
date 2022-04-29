@@ -1,4 +1,4 @@
-CC = gcc-11 -Wall
+CC = g++-11 -Wall
 
 .PHONY: clean run all
 
