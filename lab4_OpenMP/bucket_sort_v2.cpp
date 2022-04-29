@@ -37,6 +37,11 @@ void uniform_fill(std::vector<double>& array) {
   }
 }
 
+void generate_perfect_array(std::vector<double>& array) {
+  int seed = 21567;
+  std::shuffle(array.begin(), array.end(), std::default_random_engine(seed));
+}
+
 void bucket_sort(std::vector<double>& array, int no_buckets) {
     
 }
@@ -106,6 +111,21 @@ void parallel_bucket_sort_1(std::vector<double>& array) {
 }
 }
 
+void perfect_bucket_sort(std::vector<double>& array){
+  bucket_size =1; 
+  int no_buckets = size / bucket_size;
+  int buckets_per_thread = no_buckets / threads;
+  std::vector<int> buckets(no_buckets);
+
+  // each thread reads the whole array
+  
+  // put numbers into own buckets
+
+  // sort own bucket
+
+  // put results together
+}
+
 bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& original) {
   std::sort(original.begin(), original.end());
   bool are_equal = supposedly_sorted == original;
@@ -121,9 +141,16 @@ int main(int argc, char* argv[]) {
     size = atoi(argv[2]);
     repeat = atoi(argv[3]);
     bucket_size = atoi(argv[4]);
+    char* use_perfect_data_string = argv[5];
+
+    bool use_perfect_data = use_perfect_data == 'true' ? true : false;
     for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
-      uniform_fill(data);
+      if(use_perfect_data) {
+        uniform_fill(data);
+      } else {
+        generate_perfect_array(data);
+      }
       double fill_time = omp_get_wtime() - fill_time_0;
 
       std::vector<double> original = data;
@@ -135,6 +162,6 @@ int main(int argc, char* argv[]) {
 
       bool isSorted = verify(data, original);
       // printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
-      printf("%d, %d, %d, %d, %lf, %lf, %lf, %d\n", threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, isSorted);
+      printf("%d, %d, %d, %d, %lf, %lf, %lf, %s,%d\n", threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, use_perfect_data, isSorted);
     }
 }
