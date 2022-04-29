@@ -227,7 +227,9 @@ int main(int argc, char* argv[]) {
       if(use_perfect_data) {
         generate_perfect_array(data);
       } else {
-        uniform_fill(data);
+        // uniform_fill(data);
+        generate_perfect_array(data);
+
       }
       double fill_time = omp_get_wtime() - fill_time_0;
 
@@ -235,7 +237,7 @@ int main(int argc, char* argv[]) {
 
       double bucket_sort_1 = omp_get_wtime();
       if(use_perfect_data){
-        perfect_bucket_sort(data);
+        // perfect_bucket_sort(data);
       } else {
         bucket_sort_omp(data);
       }
