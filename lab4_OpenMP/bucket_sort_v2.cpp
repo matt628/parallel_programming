@@ -184,6 +184,7 @@ int main(int argc, char* argv[]) {
 
       bool isSorted = verify(data, original);
       // printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
-      printf("%d, %d, %d, %d, %lf, %lf, %lf, %s,%d\n", threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, use_perfect_data, isSorted);
+      printf("%d, %d, %d, %d, %lf, %lf, %lf, %c,%d\n", 
+      threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, use_perfect_data, isSorted);
     }
 }
