@@ -234,7 +234,7 @@ int main(int argc, char* argv[]) {
       if(use_perfect_data){
         perfect_bucket_sort(data);
       } else {
-        parallel_bucket_sort_1(data);
+        bucket_sort_omp(data);
       }
       double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
