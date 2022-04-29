@@ -135,6 +135,7 @@ void perfect_bucket_sort(std::vector<double>& array){
       }
   }
   
+  }
   // put numbers into own buckets
 
   // sort own bucket
