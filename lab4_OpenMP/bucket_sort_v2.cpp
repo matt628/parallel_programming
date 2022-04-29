@@ -135,7 +135,7 @@ void perfect_bucket_sort(std::vector<double>& array){
   //     }
   // }
   //}
-  
+
   // put numbers into own buckets
 
   // sort own bucket
@@ -160,7 +160,7 @@ int main(int argc, char* argv[]) {
     bucket_size = atoi(argv[4]);
     char use_perfect_data_string = argv[5][0];
 
-    bool use_perfect_data = use_perfect_data_string == 't' ? true : false;
+    bool use_perfect_data = false;
     for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
       if(use_perfect_data) {
@@ -178,7 +178,6 @@ int main(int argc, char* argv[]) {
       } else {
         parallel_bucket_sort_1(data);
       }
-      // parallel_bucket_sort_1(data);
       double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
 
