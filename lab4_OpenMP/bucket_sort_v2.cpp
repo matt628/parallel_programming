@@ -216,15 +216,17 @@ bool isIntMethod(auto method) {
 
 int main(int argc, char* argv[]) { 
     // argh::parser cmdl(argv);
-    auto method  = "bucket_sort_omp";
-    if(method == "bucket_sort_omp" || method == "perfect_bucket_sort") {
-          std::vector<int> data(size);  
+    // auto method  = "bucket_sort_omp";
+    // if(method == "bucket_sort_omp" || method == "perfect_bucket_sort") {
+    //       std::vector<int> data(size);  
 
-    } else if("bucket_double") {
-        std::vector<double> data(size);  
-    } else {
-      assert("Unknown bucket sort method")
-    }
+    // } else if("bucket_double") {
+    //     std::vector<double> data(size);  
+    // } else {
+    //   assert("Unknown bucket sort method")
+    // }
+
+    std::vector<int> data(size);  
 
     threads = atoi(argv[1]);
     size = atoi(argv[2]);
@@ -246,7 +248,7 @@ int main(int argc, char* argv[]) {
       if(isIntMethod(isIntMethod)) {
       std::vector<int> original = data;
       } else {
-      std::vector<double> original = data;
+      // std::vector<double> original = data;
       }
 
       double bucket_sort_1 = omp_get_wtime();
@@ -255,7 +257,7 @@ int main(int argc, char* argv[]) {
       } else if(method == "bucket_sort_omp") {
         bucket_sort_omp(data);
       } else if (method == "bucket_double") {
-        parallel_bucket_sort_1(data);
+        // parallel_bucket_sort_1(data);
       } else {
         assert("Mehtod not known");
       }
