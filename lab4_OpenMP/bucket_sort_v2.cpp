@@ -136,7 +136,9 @@ void bucket_sort_omp(std::vector<int>& vec)
 {
     static std::size_t INTEGER_BASE = 10;
 
-    const auto [min_element, max_element] = std::minmax_element(vec.begin(), vec.end());
+    const auto pair = std::minmax_element(vec.begin(), vec.end());
+    const auto min_element = pair.min;
+    const auto max_element = pair.max
     static const std::int64_t interval = std::max<std::int64_t>((*max_element - *min_element) / INTEGER_BASE, 1);
     std::vector<std::vector<int>> buckets(INTEGER_BASE * 2 + 1);
 
