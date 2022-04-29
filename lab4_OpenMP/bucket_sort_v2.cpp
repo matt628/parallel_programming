@@ -255,7 +255,7 @@ int main(int argc, char* argv[]) {
       } else if(method == "bucket_sort_omp") {
         bucket_sort_omp(data);
       } else if (method == "bucket_double") {
-        bucket_sort_1(data);
+        parallel_bucket_sort_1(data);
       } else {
         assert("Mehtod not known");
       }
