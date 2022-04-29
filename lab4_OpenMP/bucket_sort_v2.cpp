@@ -213,7 +213,7 @@ bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& origina
 int main(int argc, char* argv[]) { 
     // argh::parser cmdl(argv);
 
-    std::vector<double> data(size);  
+    std::vector<int> data(size);  
 
     threads = atoi(argv[1]);
     size = atoi(argv[2]);
