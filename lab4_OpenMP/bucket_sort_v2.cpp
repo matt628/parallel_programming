@@ -178,7 +178,7 @@ void bucket_sort_omp(std::vector<int>& vec)
   // odczycie 
 //b) jaki jest rząd złożoności obliczeniowej algorytmu, a jaka jest praca algorytmu równoległego, czy algorytm jest sekwencyjnie-efektywny?
 
-void perfect_bucket_sort(std::vector<double>& array){
+void perfect_bucket_sort(std::vector<int>& array){
   bucket_size =1; 
   int no_buckets = size / bucket_size;
   int buckets_per_thread = no_buckets / threads;
@@ -210,10 +210,21 @@ bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& origina
   return are_equal;
 } 
 
+bool isIntMethod(auto method) {
+  return method == "bucket_sort_omp" || method == "perfect_bucket_sort"
+}
+
 int main(int argc, char* argv[]) { 
     // argh::parser cmdl(argv);
+    auto method  = "bucket_sort_omp";
+    if(method == "bucket_sort_omp" || method == "perfect_bucket_sort") {
+          std::vector<int> data(size);  
 
-    std::vector<int> data(size);  
+    } else if("bucket_double") {
+        std::vector<double> data(size);  
+    } else {
+      assert("Unknown bucket sort method")
+    }
 
     threads = atoi(argv[1]);
     size = atoi(argv[2]);
@@ -224,29 +235,36 @@ int main(int argc, char* argv[]) {
     bool use_perfect_data = false;
     for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
-      if(use_perfect_data) {
+      if(isIntMethod(isIntMethod)) {
         generate_perfect_array(data);
       } else {
-        // uniform_fill(data);
-        generate_perfect_array(data);
-
+        uniform_fill(data);
       }
       double fill_time = omp_get_wtime() - fill_time_0;
 
+
+      if(isIntMethod(isIntMethod)) {
+      std::vector<int> original = data;
+      } else {
       std::vector<double> original = data;
+      }
 
       double bucket_sort_1 = omp_get_wtime();
-      if(use_perfect_data){
-        // perfect_bucket_sort(data);
-      } else {
+      if(method == "perfect_bucket_sort"){
+        perfect_bucket_sort(data);
+      } else if(method == "bucket_sort_omp") {
         bucket_sort_omp(data);
+      } else if (method == "bucket_double") {
+        bucket_sort_1(data);
+      } else {
+        assert("Mehtod not known")
       }
       double bucket_sort_time = omp_get_wtime() - bucket_sort_1;
 
 
-      bool isSorted = verify(data, original);
+      // bool isSorted = verify(data, original);
       // printf("thread_number, task_array_size, bucket_size, repeat, fill_time, bucket_time, total_time, is_sorted\n");
-      printf("%d, %d, %d, %d, %lf, %lf, %lf, %c,%d\n", 
-      threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, use_perfect_data, isSorted);
+      printf("%d, %d, %d, %d, %lf, %lf, %lf, %s,%d\n", 
+      threads, size, bucket_size, repeat, fill_time, bucket_sort_time, fill_time+bucket_sort_time, method, isSorted);
     }
 }
