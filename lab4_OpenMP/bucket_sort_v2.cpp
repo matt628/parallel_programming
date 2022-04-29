@@ -158,7 +158,7 @@ int main(int argc, char* argv[]) {
     size = atoi(argv[2]);
     repeat = atoi(argv[3]);
     bucket_size = atoi(argv[4]);
-    char use_perfect_data_string = argv[5][0];
+    // char use_perfect_data_string = argv[5][0];
 
     bool use_perfect_data = false;
     for(int i = 0; i<repeat; i++){
