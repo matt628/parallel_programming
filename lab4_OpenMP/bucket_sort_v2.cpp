@@ -211,7 +211,7 @@ bool verify(std::vector<double>& supposedly_sorted, std::vector<double>& origina
 } 
 
 bool isIntMethod(auto method) {
-  return method == "bucket_sort_omp" || method == "perfect_bucket_sort";
+  todo: return method == "bucket_sort_omp" || method == "perfect_bucket_sort";
 }
 
 int main(int argc, char* argv[]) { 
@@ -237,7 +237,7 @@ int main(int argc, char* argv[]) {
     bool use_perfect_data = false;
     for(int i = 0; i<repeat; i++){
       double fill_time_0 = omp_get_wtime();
-      if(isIntMethod(isIntMethod)) {
+      if(isIntMethod(method)) {
         generate_perfect_array(data);
       } else {
         uniform_fill(data);
