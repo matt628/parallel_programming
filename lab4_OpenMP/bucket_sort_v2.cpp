@@ -37,7 +37,10 @@ void uniform_fill(std::vector<double>& array) {
   }
 }
 
-void generate_perfect_array(std::vector<double>& array) {
+void generate_perfect_array(std::vector<int>& array) {
+  for(size_t i = 0; i < array.size(); i++){
+    array[i] = i;
+  }
   int seed = 21567;
   std::shuffle(array.begin(), array.end(), std::default_random_engine(seed));
 }
