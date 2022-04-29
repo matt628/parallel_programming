@@ -245,7 +245,7 @@ int main(int argc, char* argv[]) {
       double fill_time = omp_get_wtime() - fill_time_0;
 
 
-      if(isIntMethod(isIntMethod)) {
+      if(isIntMethod(method)) {
       std::vector<int> original = data;
       } else {
       // std::vector<double> original = data;
